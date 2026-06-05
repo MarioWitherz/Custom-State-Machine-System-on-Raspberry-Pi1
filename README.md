@@ -1,4 +1,4 @@
 
 # Custom-State-Machine-System-on-Raspberry-Pi1
 A place to store my files
-<img width="3024" height="4032" alt="IMG_2406" src="https://github.com/user-attachments/assets/ca041069-c51b-46f8-8618-205a4d2d8ef2" />
+<img width="3024" height="4032" alt="IMG_2399" src="https://github.com/user-attachments/assets/fd01d4c9-3438-4d64-8170-d11a88217b1e" />
