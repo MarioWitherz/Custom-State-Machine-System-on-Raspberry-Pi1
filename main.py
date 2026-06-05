@@ -1,20 +1,15 @@
-# AI-assisted code:
-# Used an AI tool to help structure this state machine loop and transitions.
-
 import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BCM)
 
-# Buttons
 BUTTON_1 = 5   # Button 1 -> hostile
 BUTTON_2 = 6   # Button 2 -> explode only if hostile was on
 BUTTON_3 = 13  # Button 3 -> explode only if hostile was on
 BUTTON_4 = 19  # Button 4 -> explode from idle or hostile
 
-# LEDs
-HOSTILE_LED = 27  # LED 1
-EXPLODE_LED = 22  # LED 2
+HOSTILE_LED = 27
+EXPLODE_LED = 22
 
 GPIO.setup(BUTTON_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(BUTTON_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -24,7 +19,7 @@ GPIO.setup(BUTTON_4, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(HOSTILE_LED, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(EXPLODE_LED, GPIO.OUT, initial=GPIO.LOW)
 
-state = "idle"   # idle, hostile, explode
+state = "idle"
 
 def set_state(new_state):
     global state
@@ -44,20 +39,19 @@ try:
         if b1 and not last1:
             set_state("hostile")
 
-        if b2 and not last2:
-            if state == "hostile":
-                set_state("explode")
+        if b2 and not last2 and state == "hostile":
+            set_state("explode")
 
-        if b3 and not last3:
-            if state == "hostile":
-                set_state("explode")
+        if b3 and not last3 and state == "hostile":
+            set_state("explode")
 
-        if b4 and not last4:
-            if state in ("idle", "hostile"):
-                set_state("explode")
+        if b4 and not last4 and state in ("idle", "hostile"):
+            set_state("explode")
 
         last1, last2, last3, last4 = b1, b2, b3, b4
         time.sleep(0.05)
 
 except KeyboardInterrupt:
+    pass
+finally:
     GPIO.cleanup()
